@@ -5,7 +5,7 @@ const SECRET_KEY = 'SECRET_KEY';
 const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res) => {
-  
+
   try {
     const salt = crypto.randomBytes(16);
     crypto.pbkdf2(
@@ -23,7 +23,13 @@ exports.createUser = async (req, res) => {
             res.status(400).json(err);
           } else {
             const token = jwt.sign(sanitizeUser(doc), SECRET_KEY);
-            res.status(201).json(token);
+            res
+              .cookie('jwt', token, {
+                expires: new Date(Date.now() + 3600000),
+                httpOnly: true,
+              })
+              .status(201)
+              .json(token);
           }
         });
       }
@@ -51,9 +57,15 @@ exports.loginUser = async (req, res) => {
   // } catch (err) {
   //   res.status(400).json(err);
   // }
-  res.json(req.user);
+  res
+    .cookie('jwt', req.user.token, {
+      expires: new Date(Date.now() + 3600000),
+      httpOnly: true,
+    })
+    .status(201)
+    .json(req.user.token);
 };
 
 exports.checkUser = async (req, res) => {
-  res.json({status:'success',user: req.user});
+  res.json({ status: 'success', user: req.user });
 };

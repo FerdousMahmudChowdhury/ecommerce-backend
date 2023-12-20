@@ -11,7 +11,6 @@ exports.fetchUserById = async (req, res) => {
     res.status(400).json(err);
   }
 };
-
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   try {

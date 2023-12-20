@@ -1,3 +1,4 @@
+
 const express = require('express');
 const { fetchUserById, updateUser } = require('../controller/User');
 

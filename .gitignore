@@ -2,3 +2,4 @@ steps.js
 node_modules
 package-lock.json
 /build
+.env

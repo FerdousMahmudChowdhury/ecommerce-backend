@@ -34,14 +34,10 @@ const path = require('path');
 
 
 
-
-console.log(process.env)
-
 // Webhook
 
 
 const endpointSecret = process.env.ENDPOINT_SECRET;
-
 server.post(
   '/webhook',
   express.raw({ type: 'application/json' }),
@@ -78,6 +74,7 @@ server.post(
     response.send();
   }
 );
+
 
 
 

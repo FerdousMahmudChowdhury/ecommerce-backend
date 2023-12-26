@@ -27,15 +27,14 @@ exports.cookieExtractor = function (req) {
     token = req.cookies['jwt'];
     console.log('tukii',token)
   }
-  //TODO : this is temporary token for testing without cookie
-  // token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODVlZWVmNmZlZmVhMDM2YjkwZmU3ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAzMjc2NDQxfQ.QW9cpMkBZAFbRt1fx8NP8hHWC-OR8-eb9nbh--rw2Po"
+
   return token;
 };
 
 
 exports.sendMail = async function ({to, subject, text, html}){
   let info = await transporter.sendMail({
-      from: '"E-commerce" <coderdost@gmail.com>', // sender address
+      from: '"E-commerce" <ferdousmahmud8@gmail.com>', // sender address
       to,
       subject,
       text,

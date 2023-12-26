@@ -90,7 +90,7 @@ opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 //middlewares
 
-server.use(express.static(path.resolve(__dirname,'build')))
+server.use(express.static(path.resolve(__dirname, 'build')))
 server.use(cookieParser());
 server.use(
   session({
@@ -115,6 +115,7 @@ server.use('/users', isAuth(), usersRouter.router);
 server.use('/auth', authRouter.router);
 server.use('/cart', isAuth(), cartRouter.router);
 server.use('/orders', isAuth(), ordersRouter.router);
+
 // this line we add to make react router work in case of other routes doesnt match
 server.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
@@ -122,34 +123,34 @@ server.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
 passport.use(
   'local',
   new LocalStrategy(
-    {usernameField:'email'},
+    { usernameField: 'email' },
     async function (email, password, done) {
-      console.log({email,password})
-    // by default passport uses username
-    try {
-      const user = await User.findOne({ email: email });
-      console.log(email, password, user);
-      if (!user) {
-        return done(null, false, { message: 'invalid credentials' }); // for safety
-      }
-      crypto.pbkdf2(
-        password,
-        user.salt,
-        310000,
-        32,
-        'sha256',
-        async function (err, hashedPassword) {
-          if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
-            return done(null, false, { message: 'invalid credentials' });
-          }
-          const token = jwt.sign(sanitizeUser(user), process.env.JWT_SECRET_KEY);
-          done(null, {id:user.id, role:user.role,token}); // this lines sends to serializer
+      console.log({ email, password })
+      // by default passport uses username
+      try {
+        const user = await User.findOne({ email: email });
+        console.log(email, password, user);
+        if (!user) {
+          return done(null, false, { message: 'invalid credentials' }); // for safety
         }
-      );
-    } catch (err) {
-      done(err);
-    }
-  })
+        crypto.pbkdf2(
+          password,
+          user.salt,
+          310000,
+          32,
+          'sha256',
+          async function (err, hashedPassword) {
+            if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
+              return done(null, false, { message: 'invalid credentials' });
+            }
+            const token = jwt.sign(sanitizeUser(user), process.env.JWT_SECRET_KEY);
+            done(null, { id: user.id, role: user.role, token }); // this lines sends to serializer
+          }
+        );
+      } catch (err) {
+        done(err);
+      }
+    })
 );
 passport.use(
   'jwt',
@@ -194,12 +195,12 @@ server.post("/create-payment-intent", async (req, res) => {
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: totalAmount*100, // for decimal compensation
+    amount: totalAmount * 100, // for decimal compensation
     currency: "inr",
     automatic_payment_methods: {
       enabled: true,
     },
-    metadata:{
+    metadata: {
       orderId
     }
   });

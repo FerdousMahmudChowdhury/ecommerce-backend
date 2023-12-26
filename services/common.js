@@ -15,6 +15,6 @@ exports.cookieExtractor = function (req) {
     console.log('tukii',token)
   }
   //TODO : this is temporary token for testing without cookie
-  token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODQ5NGM2NDExN2U5NTdmYmEwMTYwNiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAzMjQ4OTE3fQ.fIVOnXOp2_eU0gXov82syuRYlPhKnLJ4LrkrMd0Rm4I"
+  // token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODVlZWVmNmZlZmVhMDM2YjkwZmU3ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAzMjc2NDQxfQ.QW9cpMkBZAFbRt1fx8NP8hHWC-OR8-eb9nbh--rw2Po"
   return token;
 };
